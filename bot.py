@@ -50,6 +50,7 @@ def calculate(message):
 
     except Exception as e:
         print(f'Помилка: {e}')
+        bot.send_message(message.chat.id, 'Неправильний формат введіть /start щоб спробувати знову!')
 
 
 
