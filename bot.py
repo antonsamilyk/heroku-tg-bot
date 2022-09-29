@@ -36,6 +36,10 @@ def calculate(message):
         if str(time_2)[1] != '.' and len(str(time_2)) != 4:
             bot.send_message(message.chat.id, 'Неправильний формат введіть /start щоб спробувати знову!')
         time_2 = str(time_2).strip().split('.')
+        if time_1[1] == '00':
+            time_1[1] = '0'
+        if time_2[1] == '00':
+            time_2[1] = 0
         hours = int(time_1[0]) + int(time_2[0])
         mins = int(time_1[1]) + int(time_2[1])
         if mins >= 60:
@@ -45,6 +49,7 @@ def calculate(message):
             mins = '00'
         if len(str(mins)) == 1:
             mins = '0' + str(mins)
+
         bot.send_message(message.chat.id, f"Відповідь: {hours}:{mins}")
 
     except Exception as e:
