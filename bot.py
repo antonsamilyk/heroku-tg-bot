@@ -1,5 +1,5 @@
 import telebot
-import config
+import os
 
 
 class User:
@@ -7,11 +7,15 @@ class User:
         self.name = name
         self.id = user_id
 
+
 class Calculator:
     def __init__(self, msg = ' '):
         self.msg = msg
 
-bot = telebot.TeleBot(config.TOKEN)
+
+TOKEN = os.environ['TOKEN']
+bot = telebot.TeleBot(TOKEN)
+
 
 def init_user(message):
     user = User(message.text, message.from_user.id)
@@ -39,7 +43,7 @@ def calculate(message):
         if time_1[1] == '00':
             time_1[1] = '0'
         if time_2[1] == '00':
-            time_2[1] = 0
+            time_2[1] = '0'
         hours = int(time_1[0]) + int(time_2[0])
         mins = int(time_1[1]) + int(time_2[1])
         if mins >= 60:
@@ -54,7 +58,6 @@ def calculate(message):
 
     except Exception as e:
         bot.send_message(message.chat.id, 'Неправильний формат введіть /start щоб спробувати знову!')
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
